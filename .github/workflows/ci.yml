@@ -23,7 +23,14 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install --upgrade pip
-          if [ -f breathe_esg/requirements.txt ]; then pip install -r breathe_esg/requirements.txt; fi
+          # prefer repository root requirements.txt, fallback to breathe_esg/requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          elif [ -f breathe_esg/requirements.txt ]; then
+            pip install -r breathe_esg/requirements.txt
+          else
+            echo "No requirements.txt found; skipping pip install"
+          fi
 
       - name: Run migrations and tests
         run: |
