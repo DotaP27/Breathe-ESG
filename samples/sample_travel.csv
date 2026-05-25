@@ -1,0 +1,4 @@
+TripID,EmployeeID,TravelDate,OriginCode,DestCode,TransportMode,Hotel_Nights,Distance_km
+T-1001,emp01,2024-03-14,DEL,BOM,FLIGHT,,
+T-1002,emp02,2024-04-01,JFK,LAX,FLIGHT,,
+T-1003,emp03,2024-04-15,, ,HOTEL,2,

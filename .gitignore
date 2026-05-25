@@ -1,0 +1,35 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Env files
+.env
+*.env
+
+# SQLite
+*.sqlite3
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# pytest
+.pytest_cache/
