@@ -1,0 +1,10 @@
+# Render manifest to set build and start commands for the web service
+services:
+  - type: web
+    name: breathe-esg-api
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: bash ./start.sh
+    disk: 1024
