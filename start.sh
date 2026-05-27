@@ -8,6 +8,8 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 # Run DB migrations and collect static files
+# Ensure we run from the Django project directory where manage.py lives
+cd breathe_esg
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput
 
