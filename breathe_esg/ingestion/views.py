@@ -76,7 +76,6 @@ class IngestFileAPIView(APIView):
                         quantity_kwh=quantity_kwh,
                     )
                     if errs:
-                        rec.status = "ERROR"
                         # attach errors to raw_data for audit
                         try:
                             rec.raw_data["_errors"] = errs
@@ -96,7 +95,6 @@ class IngestFileAPIView(APIView):
                         quantity_kwh=r.get("quantity_kwh"),
                     )
                     if errs:
-                        rec.status = "ERROR"
                         try:
                             rec.raw_data["_errors"] = errs
                         except Exception:
@@ -116,7 +114,6 @@ class IngestFileAPIView(APIView):
                         co2e_kg=r.get("co2e_kg"),
                     )
                     if errs:
-                        rec.status = "ERROR"
                         try:
                             rec.raw_data["_errors"] = errs
                         except Exception:
@@ -137,7 +134,6 @@ class IngestFileAPIView(APIView):
                             quantity_kwh=r.get("quantity_kwh"),
                         )
                         if errs:
-                            rec.status = "ERROR"
                             try:
                                 rec.raw_data["_errors"] = errs
                             except Exception:
@@ -162,7 +158,6 @@ class IngestFileAPIView(APIView):
                             quantity_kwh=None if quantity is not None else None,
                         )
                         if errs:
-                            rec.status = "ERROR"
                             try:
                                 rec.raw_data["_errors"] = errs
                             except Exception:
@@ -183,7 +178,6 @@ class IngestFileAPIView(APIView):
                             co2e_kg=r.get("co2e_kg"),
                         )
                         if errs:
-                            rec.status = "ERROR"
                             try:
                                 rec.raw_data["_errors"] = errs
                             except Exception:
