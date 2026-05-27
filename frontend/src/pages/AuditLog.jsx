@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import api from '../utils/api'
+import api, { API_BASE } from '../utils/api'
 import PrettyObject from '../components/PrettyObject'
 
 export default function AuditLog(){
@@ -25,9 +25,8 @@ export default function AuditLog(){
 
   const downloadCsv = async ()=>{
     const token = localStorage.getItem('access_token')
-    const base = import.meta.env.VITE_API_BASE||'http://127.0.0.1:8000'
     const tenantParam = '?tenant_id=1'
-    const res = await fetch(base + '/api/records/audit/export/' + tenantParam, { headers: token ? { 'Authorization': `Bearer ${token}` } : {} })
+    const res = await fetch(API_BASE + '/api/records/audit/export/' + tenantParam, { headers: token ? { 'Authorization': `Bearer ${token}` } : {} })
     if(!res.ok){ alert('Failed to download CSV'); return }
     const blob = await res.blob()
     const url = URL.createObjectURL(blob)

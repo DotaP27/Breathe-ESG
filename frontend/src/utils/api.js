@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000'
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://breathe-esg-a273.onrender.com'
+
+export { API_BASE }
 
 function authHeaders(){
   const token = localStorage.getItem('access_token')

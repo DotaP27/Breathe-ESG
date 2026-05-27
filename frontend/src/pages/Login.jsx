@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
+import { API_BASE } from '../utils/api'
 
 export default function Login(){
   const [username, setUsername] = useState('')
@@ -18,7 +19,7 @@ export default function Login(){
     setError(null)
     try{
       if(isRegister){
-        const r = await fetch((import.meta.env.VITE_API_BASE||'http://127.0.0.1:8000') + '/api/register/', {
+        const r = await fetch(API_BASE + '/api/register/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, email, password })
@@ -33,7 +34,7 @@ export default function Login(){
         return
       }
 
-      const res = await fetch((import.meta.env.VITE_API_BASE||'http://127.0.0.1:8000') + '/api/token/', {
+      const res = await fetch(API_BASE + '/api/token/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
