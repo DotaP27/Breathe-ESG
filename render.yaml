@@ -1,9 +1,12 @@
-# Render manifest to set build and start commands for the web service
+# Render manifest to deploy the Django API as a native Python service
 services:
   - type: web
     name: breathe-esg-api
-    env: docker
+    env: python
     plan: free
     region: oregon
-    # Using Docker: Render will build the included Dockerfile and run the container.
-    disk: 1024
+    buildCommand: pip install -r requirements.txt && cd breathe_esg && python manage.py migrate --noinput && python manage.py collectstatic --noinput
+    startCommand: cd breathe_esg && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
