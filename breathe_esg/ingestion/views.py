@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import get_object_or_404
 
 import hashlib
 from records.models import IngestionBatch, EmissionRecord
@@ -23,10 +22,13 @@ class IngestFileAPIView(APIView):
 
     def post(self, request, format=None):
         f = request.FILES.get("file")
-        tenant_id = request.data.get("tenant_id")
-        if not f or not tenant_id:
+        tenant_id = request.data.get("tenant_id") or 1
+        if not f:
             return Response({"error": "file and tenant_id required"}, status=status.HTTP_400_BAD_REQUEST)
-        tenant = get_object_or_404(Tenant, pk=tenant_id)
+        tenant, _ = Tenant.objects.get_or_create(
+            pk=tenant_id,
+            defaults={"name": "Default Tenant", "slug": "default-tenant"},
+        )
         content = f.read()
         # compute sha256 fingerprint for dedup detection
         file_hash = hashlib.sha256(content).hexdigest()
@@ -194,6 +196,6 @@ class IngestFileAPIView(APIView):
             if created:
                 EmissionRecord.objects.bulk_create(created)
         except Exception as e:
-            errors.append(str(e))
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response({"batch_id": batch.id, "source_type": source_type.upper(), "parsed_rows": len(parsed), "created": len(created), "errors": errors})

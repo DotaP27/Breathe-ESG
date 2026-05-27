@@ -82,6 +82,10 @@ def detect_source_type(file_bytes, filename=None):
     if len(hits) == 1:
         return hits[0]
 
+    # Common mixed-file naming patterns used by exported demo data.
+    if any(k in filename for k in ("COMBINED", "MIXED", "ALL_IN_ONE")):
+        return "MIXED"
+
     # filename fallback if text is sparse
     if "TRAVEL" in filename:
         return "TRAVEL"
