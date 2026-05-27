@@ -20,5 +20,8 @@ COPY . .
 
 ENV PORT=8000
 
+# Ensure commands run from the Django project directory where manage.py lives
+WORKDIR /app/breathe_esg
+
 # Run migrations, collectstatic then start Gunicorn
 CMD bash -lc "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:${PORT} --workers 3"
