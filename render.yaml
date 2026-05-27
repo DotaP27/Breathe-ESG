@@ -6,7 +6,7 @@ services:
     plan: free
     region: oregon
     buildCommand: pip install -r requirements.txt && cd breathe_esg && python manage.py migrate --noinput && python manage.py collectstatic --noinput
-    startCommand: cd breathe_esg && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:$PORT --workers 3
+    startCommand: cd breathe_esg && python scripts/create_admin.py || true && gunicorn breathe_esg.wsgi:application --bind 0.0.0.0:$PORT --workers 3
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
