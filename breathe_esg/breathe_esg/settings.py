@@ -61,6 +61,16 @@ DATABASES = {
     }
 }
 
+# In production, allow configuring the database via DATABASE_URL (Postgres, etc.)
+if os.environ.get("DATABASE_URL"):
+    try:
+        import dj_database_url
+
+        DATABASES["default"] = dj_database_url.parse(os.environ.get("DATABASE_URL"), conn_max_age=600)
+    except Exception:
+        # If dj_database_url isn't installed or parsing fails, fall back to default sqlite
+        pass
+
 AUTH_PASSWORD_VALIDATORS = []
 
 LANGUAGE_CODE = "en-us"
